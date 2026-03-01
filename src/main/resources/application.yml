@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: spring-api-scanner
+
+server:
+  port: 8080
+
+openai:
+  api-key: ${OPENAI_API_KEY:}
+  model: gpt-4o-mini
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.rawqubit: DEBUG
+    root: INFO
