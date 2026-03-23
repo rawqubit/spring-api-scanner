@@ -204,7 +204,7 @@ public class ApiSecurityAnalyzer {
             if (content.getSchema() == null) return;
             boolean noReadOnlyFields = content.getSchema().getProperties() == null
                     || content.getSchema().getProperties().values().stream()
-                        .noneMatch((Schema<?> s) -> Boolean.TRUE.equals(s.getReadOnly()));
+                        .noneMatch(s -> s instanceof Schema && Boolean.TRUE.equals(((Schema<?>) s).getReadOnly()));
 
             if (noReadOnlyFields && isDataMutationMethod(method)) {
                 results.add(Finding.builder()
