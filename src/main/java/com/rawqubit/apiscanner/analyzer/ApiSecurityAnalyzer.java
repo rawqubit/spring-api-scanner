@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -203,7 +204,7 @@ public class ApiSecurityAnalyzer {
             if (content.getSchema() == null) return;
             boolean noReadOnlyFields = content.getSchema().getProperties() == null
                     || content.getSchema().getProperties().values().stream()
-                        .noneMatch(s -> Boolean.TRUE.equals(s.getReadOnly()));
+                        .noneMatch((Schema<?> s) -> Boolean.TRUE.equals(s.getReadOnly()));
 
             if (noReadOnlyFields && isDataMutationMethod(method)) {
                 results.add(Finding.builder()
